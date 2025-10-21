@@ -32,7 +32,7 @@ export const searchShows = async (query) => {
   try {
     const response = await fetch(`${API_BASE_URL}/search/shows?q=${encodeURIComponent(query)}`);
     if (!response.ok) {
-      throw new Error('Failed to search shows');
+      throw new Error('Failed to search movies');
     }
     const data = await response.json();
     return data.map(item => item.show);
