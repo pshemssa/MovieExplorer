@@ -51,12 +51,8 @@ export const Home = ({ movies, loading, error, isFavorite, onToggleFavorite }) =
   }
 
   return (
-    <div className="space-y-6">
-      <div className="bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-800 dark:to-blue-950 text-white py-12 px-6 rounded-2xl shadow-xl">
-        <h1 className="text-4xl font-bold mb-2">Discover Amazing Movies</h1>
-        <p className="text-blue-100 text-lg">Explore thousands of shows and add your favorites</p>
-      </div>
-
+   <div className="space-y-6">
+      
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 space-y-4">
         <SearchBar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
         <div className="pt-2">
