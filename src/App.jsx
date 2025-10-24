@@ -1,81 +1,37 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { Navbar } from './components/Navbar';
-import { Home } from './pages/Home';
-import { Favorites } from './pages/Favorites';
-import { MovieDetails } from './pages/MovieDetails';
-import { useFetchMovies } from './hooks/useFetchMovies';
-import { useFavorites } from './hooks/useFavorites';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import MovieDetails from './pages/MovieDetails';
+import Favorites from './pages/Favorites';
 
 function App() {
-  const { movies, loading, error } = useFetchMovies();
-  const { favorites, isFavorite, toggleFavorite } = useFavorites();
-  const [darkMode, setDarkMode] = useState(false);
+  // Synchronous initial load from localStorage to avoid flash
+  const [theme, setTheme] = useState(() => {
+    const saved = localStorage.getItem('theme');
+    return saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  });
 
+  // Single effect: Apply class after initial render
   useEffect(() => {
-    const savedDarkMode = localStorage.getItem('darkMode');
-    if (savedDarkMode) {
-      setDarkMode(JSON.parse(savedDarkMode));
-    }
-  }, []);
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    localStorage.setItem('theme', theme);
+    console.log('Applied theme:', theme, 'HTML has dark class:', document.documentElement.classList.contains('dark'));  // Keep for now, remove later
+  }, [theme]);
 
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-    localStorage.setItem('darkMode', JSON.stringify(darkMode));
-  }, [darkMode]);
-
-  const toggleDarkMode = () => {
-    setDarkMode((prev) => !prev);
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
   };
 
   return (
     <Router>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
-        <Navbar
-          darkMode={darkMode}
-          toggleDarkMode={toggleDarkMode}
-          favoriteCount={favorites.length}
-        />
-
-        <main className="container mx-auto px-4 py-8">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-500">  {/* Increased duration for smooth flip */}
+        <Navbar onToggleTheme={toggleTheme} currentTheme={theme} />
           <Routes>
-            <Route
-              path="/"
-              element={
-                <Home
-                  movies={movies}
-                  loading={loading}
-                  error={error}
-                  isFavorite={isFavorite}
-                  onToggleFavorite={toggleFavorite}
-                />
-              }
-            />
-            <Route
-              path="/favorites"
-              element={
-                <Favorites
-                  favorites={favorites}
-                  isFavorite={isFavorite}
-                  onToggleFavorite={toggleFavorite}
-                />
-              }
-            />
-            <Route
-              path="/movie/:id"
-              element={
-                <MovieDetails
-                  isFavorite={isFavorite}
-                  onToggleFavorite={toggleFavorite}
-                />
-              }
-            />
+            <Route path="/" element={<Home />} />
+            <Route path="/movie/:id" element={<MovieDetails />} />
+            <Route path="/favorites" element={<Favorites />} />
           </Routes>
-        </main>
       </div>
     </Router>
   );

@@ -6,54 +6,38 @@ export const useFavorites = () => {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    const storedFavorites = localStorage.getItem(FAVORITES_KEY);
-    if (storedFavorites) {
+    const stored = localStorage.getItem(FAVORITES_KEY);
+    if (stored) {
       try {
-        setFavorites(JSON.parse(storedFavorites));
-      } catch (error) {
-        console.error('Error parsing favorites from localStorage:', error);
+        setFavorites(JSON.parse(stored));
+      } catch {
         setFavorites([]);
       }
     }
   }, []);
 
   const addFavorite = (movie) => {
-    setFavorites((prevFavorites) => {
-      const isAlreadyFavorite = prevFavorites.some((fav) => fav.id === movie.id);
-      if (isAlreadyFavorite) {
-        return prevFavorites;
-      }
-      const newFavorites = [...prevFavorites, movie];
-      localStorage.setItem(FAVORITES_KEY, JSON.stringify(newFavorites));
-      return newFavorites;
+    setFavorites((prev) => {
+      if (prev.some((f) => f.id === movie.id)) return prev;
+      const updated = [...prev, movie];
+      localStorage.setItem(FAVORITES_KEY, JSON.stringify(updated));
+      return updated;
     });
   };
 
   const removeFavorite = (movieId) => {
-    setFavorites((prevFavorites) => {
-      const newFavorites = prevFavorites.filter((fav) => fav.id !== movieId);
-      localStorage.setItem(FAVORITES_KEY, JSON.stringify(newFavorites));
-      return newFavorites;
+    setFavorites((prev) => {
+      const updated = prev.filter((f) => f.id !== movieId);
+      localStorage.setItem(FAVORITES_KEY, JSON.stringify(updated));
+      return updated;
     });
   };
 
-  const isFavorite = (movieId) => {
-    return favorites.some((fav) => fav.id === movieId);
-  };
+  const isFavorite = (movieId) => favorites.some((f) => f.id === movieId);
 
   const toggleFavorite = (movie) => {
-    if (isFavorite(movie.id)) {
-      removeFavorite(movie.id);
-    } else {
-      addFavorite(movie);
-    }
+    isFavorite(movie.id) ? removeFavorite(movie.id) : addFavorite(movie);
   };
 
-  return {
-    favorites,
-    addFavorite,
-    removeFavorite,
-    isFavorite,
-    toggleFavorite,
-  };
+  return { favorites, addFavorite, removeFavorite, isFavorite, toggleFavorite };
 };

@@ -3,35 +3,36 @@ import { Heart, Star } from 'lucide-react';
 
 export const MovieCard = ({ movie, isFavorite, onToggleFavorite }) => {
   const imageUrl = movie.image?.medium || 'https://via.placeholder.com/210x295?text=No+Image';
-  const rating = movie.rating?.average || 'N/A';
+  const rating = movie.rating?.average?.toFixed(1) || 'N/A';
 
   return (
-    <div className="group relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-      <Link to={`/movie/${movie.id}`}>
-        <div className="relative overflow-hidden aspect-[2/3]">
+    <div className="group relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+      <Link to={`/movie/${movie.id}`} className="block">
+        <div className="relative aspect-[2/3] overflow-hidden bg-gray-200 dark:bg-gray-700">
           <img
             src={imageUrl}
             alt={movie.name}
-            className="w-full h-full  group-hover:scale-110 transition-transform duration-300"
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+            loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>
       </Link>
 
-      <div className="p-4">
+      <div className="p-4 space-y-3">
         <Link to={`/movie/${movie.id}`}>
-          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-1 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white line-clamp-1 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
             {movie.name}
           </h3>
         </Link>
 
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between text-sm">
           <div className="flex items-center space-x-1 text-yellow-500">
             <Star className="w-4 h-4 fill-current" />
-            <span className="text-sm font-semibold">{rating}</span>
+            <span className="font-semibold">{rating}</span>
           </div>
-          {movie.genres && movie.genres.length > 0 && (
-            <span className="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">
+          {movie.genres?.[0] && (
+            <span className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded">
               {movie.genres[0]}
             </span>
           )}
@@ -39,6 +40,7 @@ export const MovieCard = ({ movie, isFavorite, onToggleFavorite }) => {
 
         <button
           onClick={() => onToggleFavorite(movie)}
+          aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
           className={`w-full flex items-center justify-center space-x-2 py-2 rounded-lg font-medium transition-all ${
             isFavorite
               ? 'bg-red-500 text-white hover:bg-red-600'

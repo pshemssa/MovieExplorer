@@ -1,29 +1,45 @@
-export const CategoryFilter = ({ selectedCategory, onCategoryChange, categories }) => {
+// src/components/CategoryFilter.jsx
+export const CategoryFilter = ({
+  selectedCategory,
+  onCategoryChange,
+  categories,
+}) => {
+  const buttonClasses = (cat) => {
+    const base =
+      'whitespace-nowrap px-4 py-2 rounded-lg font-medium transition-all duration-200';
+    const active = 'bg-blue-600 text-white shadow-md';
+    const inactive =
+      'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700';
+    return `${base} ${selectedCategory === cat ? active : inactive}`;
+  };
+
   return (
-    <div className="flex flex-wrap gap-2">
-      <button
-        onClick={() => onCategoryChange('All')}
-        className={`px-4 py-2 rounded-lg font-medium transition-all ${
-          selectedCategory === 'All'
-            ? 'bg-blue-600 text-white shadow-md'
-            : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
-        }`}
+    <div className="overflow-x-auto pb-2 -mb-2">
+      <div
+        className="flex gap-2 min-w-max"
+        role="group"
+        aria-label="Filter by category"
       >
-        All
-      </button>
-      {categories.map((category) => (
         <button
-          key={category}
-          onClick={() => onCategoryChange(category)}
-          className={`px-4 py-2 rounded-lg font-medium transition-all ${
-            selectedCategory === category
-              ? 'bg-blue-600 text-white shadow-md'
-              : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
-          }`}
+          key="All"
+          onClick={() => onCategoryChange('All')}
+          className={buttonClasses('All')}
+          aria-pressed={selectedCategory === 'All'}
         >
-          {category}
+          All
         </button>
-      ))}
+
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => onCategoryChange(cat)}
+            className={buttonClasses(cat)}
+            aria-pressed={selectedCategory === cat}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
