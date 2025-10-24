@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ThemeToggle from './ThemeToggle';
+import { Film } from 'lucide-react';
 
 const Navbar = ({ onToggleTheme, currentTheme }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,9 +14,9 @@ const Navbar = ({ onToggleTheme, currentTheme }) => {
           <div className="flex">
             <Link
               to="/"
-              className="text-2xl font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
+              className="text-2xl font-bold text-green-600 dark:text-green-800 hover:text-green-700 dark:hover:text-blue-300 transition-colors"
             >
-              MovieExplorer
+           MovieExplorer
             </Link>
           </div>
 
@@ -23,13 +24,13 @@ const Navbar = ({ onToggleTheme, currentTheme }) => {
           <div className="hidden md:flex mx-auto space-x-8"> 
             <Link
               to="/"
-              className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              className="text-green-700 dark:text-gray-200 hover:text-green-800 dark:hover:text-green-800 px-3 py-2 rounded-md text-sm font-medium transition-colors"
             >
               Home
             </Link>
             <Link
               to="/favorites"
-              className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              className="text-green-700 dark:text-green-800 hover:text-green-600 dark:hover:text-green-400 px-3 py-2 rounded-md text-sm font-medium transition-colors"
             >
               Favorites
             </Link>
@@ -75,7 +76,7 @@ const Navbar = ({ onToggleTheme, currentTheme }) => {
             <Link
               to="/favorites"
               onClick={() => setMenuOpen(false)}
-              className="block text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium"
+              className="block text-gray-700 dark:text-gray-200 hover:text-green-600 dark:hover:text-green-400 px-3 py-2 rounded-md text-sm font-medium"
             >
               Favorites
             </Link>

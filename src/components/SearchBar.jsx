@@ -13,7 +13,7 @@ export const SearchBar = ({ searchQuery, onSearchChange }) => {
         placeholder="Search movies..."
         value={searchQuery}
         onChange={(e) => onSearchChange(e.target.value)}
-        className="w-full pl-10 pr-10 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-all"
+        className="w-full pl-10 pr-10 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-600 dark:focus:ring-green-600 transition-all"
       />
       {searchQuery && (
         <button

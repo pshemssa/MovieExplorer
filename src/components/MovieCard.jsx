@@ -21,7 +21,7 @@ export const MovieCard = ({ movie, isFavorite, onToggleFavorite }) => {
 
       <div className="p-4 space-y-3">
         <Link to={`/movie/${movie.id}`}>
-          <h3 className="text-lg font-bold text-gray-900 dark:text-white line-clamp-1 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white line-clamp-1 hover:text-green-600 dark:hover:text-blue-400 transition-colors">
             {movie.name}
           </h3>
         </Link>

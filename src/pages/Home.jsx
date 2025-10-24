@@ -5,6 +5,7 @@ import { CategoryFilter } from '../components/CategoryFilter';
 import Pagination from '../components/pagination';
 import { useFetchMovies } from '../hooks/useFetchMovies';
 import { useFavorites } from '../hooks/useFavorites';
+import HeroSection from '../components/Hero';
 
 const ITEMS_PER_PAGE = 12;
 
@@ -106,16 +107,21 @@ const Home = () => {
   return (
     <div className="p-4 bg-white dark:bg-gray-800 text-black dark:text-white">
       {/* Search + Filter */}
+      <HeroSection  movies={movies} 
+      onToggleFavorite={toggleFavorite}
+      isFavorite={isFavorite}/><br/>
       <div className="flex flex-col md:flex-row gap-4">
         <div className="flex-1">
           <SearchBar searchQuery={searchQuery} onSearchChange={handleSearchChange} />
         </div>
         <div className="md:w-64">
+         
           <CategoryFilter
             selectedCategory={selectedCategory}
             onCategoryChange={handleCategoryChange}
             categories={categories}
           />
+           <br/>
         </div>
       </div>
 

@@ -7,7 +7,7 @@ export const CategoryFilter = ({
   const buttonClasses = (cat) => {
     const base =
       'whitespace-nowrap px-4 py-2 rounded-lg font-medium transition-all duration-200';
-    const active = 'bg-blue-600 text-white shadow-md';
+    const active = 'bg-green-600 text-white shadow-md';
     const inactive =
       'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700';
     return `${base} ${selectedCategory === cat ? active : inactive}`;
