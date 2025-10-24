@@ -14,7 +14,7 @@ const Navbar = ({ onToggleTheme, currentTheme }) => {
           <div className="flex">
             <Link
               to="/"
-              className="text-2xl font-bold text-green-600 dark:text-green-800 hover:text-green-700 dark:hover:text-blue-300 transition-colors"
+              className="text-2xl font-bold text-green-600 dark:text-green-800 hover:text-green-700 dark:hover:text-green-300 transition-colors"
             >
            MovieExplorer
             </Link>
@@ -69,7 +69,7 @@ const Navbar = ({ onToggleTheme, currentTheme }) => {
             <Link
               to="/"
               onClick={() => setMenuOpen(false)}
-              className="block text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium"
+              className="block text-gray-700 dark:text-gray-200 hover:text-green-600 dark:hover:text-green-400 px-3 py-2 rounded-md text-sm font-medium"
             >
               Home
             </Link>
